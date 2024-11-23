@@ -70,7 +70,7 @@ def main():
         print("Interruption clavier")
 
     finally:
-        GPIO.cleannup()
+        GPIO.cleanup()
 
 
 if __name__ == "__main__":
