@@ -11,6 +11,7 @@ sonAmbiance = True
 listeFichiersAudio = [os.path.join("./Audio", fichier)
                       for fichier in os.listdir("./Audio")]
 indexAudio = 0
+pinBouton = 18
 
 
 def ecouterHistoire():
@@ -52,10 +53,7 @@ fenetre.mainloop()
 '''
 Connexion au Raspberry Pi 4b
 '''
-
-
 def main():
-    pinBouton = 18
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pinBouton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
@@ -68,7 +66,9 @@ def main():
                 mixer.music.play(-1, fade_ms=2000)
                 checkEvent()
 
-            time.sleep(0.1)
+    except KeyboardInterrupt:
+        print("Interruption clavier")
+
     finally:
         GPIO.cleannup()
 
