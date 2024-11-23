@@ -1,22 +1,9 @@
 import os
+import time
 import tkinter as tk
 from pygame import mixer
 
-'''
-// Connexion aux ports du Raspberry Pi 4
 import RPi.GPIO as GPIO
-
-bouton = ???
-GPIO.setup(bouton.GPIO.IN)
-
-while True:
-    if GPIO.input(bouton) == 1:
-        ecouterHistoire
-    else:
-        mixer.music.load("./1-sonAmbiance.mp3")
-        mixer.music.play(-1, fade_ms=2000)
-        checkEvent()
-'''
 
 
 mixer.init()
@@ -42,9 +29,6 @@ def checkEvent():
     fenetre.after(500, checkEvent)
 
 
-def clickBouton():
-    ecouterHistoire()
-
 '''
 Pratique pour les tests mais inutile si aucun affichage n'est présent
 '''
@@ -54,7 +38,7 @@ fenetre.title("Ronde des Crèches")
 fenetre.geometry("400x200")
 
 # Ajouter un bouton
-button = tk.Button(fenetre, text="Lancer le dialogue", command=clickBouton)
+button = tk.Button(fenetre, text="Lancer le dialogue", command=ecouterHistoire)
 button.pack(pady=20)
 
 # Charger le son d'ambiance
@@ -63,3 +47,31 @@ mixer.music.play(-1, fade_ms=2000)
 
 checkEvent()
 fenetre.mainloop()
+
+
+'''
+Connexion au Raspberry Pi 4b
+'''
+
+
+def main():
+    pinBouton = 18
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(pinBouton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+    try:
+        while True:
+            if GPIO.input(pinBouton) == GPIO.HIGH:
+                ecouterHistoire()
+            else:
+                mixer.music.load("./1-sonAmbiance.mp3")
+                mixer.music.play(-1, fade_ms=2000)
+                checkEvent()
+
+            time.sleep(0.1)
+    finally:
+        GPIO.cleannup()
+
+
+if __name__ == "__main__":
+    main()
