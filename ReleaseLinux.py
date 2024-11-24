@@ -1,9 +1,8 @@
 import os
 import time
-import tkinter as tk
+import RPi.GPIO as GPIO
 from pygame import mixer
 
-import RPi.GPIO as GPIO
 
 '''
 Initialisation
@@ -45,27 +44,6 @@ def checkEvent():
         # Son de fond à mettre dans le répertoire principal (à renommer en cas de besoin)
         mixer.music.load("./1-sonAmbiance.mp3")
         mixer.music.play(-1)
-    fenetre.after(500, checkEvent)
-
-
-'''
-Pratique pour les tests mais inutile si aucun affichage n'est présent
-'''
-# Création de la fenêtre principale
-fenetre = tk.Tk()
-fenetre.title("Ronde des Crèches")
-fenetre.geometry("400x200")
-
-# Ajouter un bouton
-button = tk.Button(fenetre, text="Lancer le dialogue", command=ecouterHistoire)
-button.pack(pady=20)
-
-# Charger le son d'ambiance
-mixer.music.load("./1-sonAmbiance.mp3")
-mixer.music.play(-1, fade_ms=2000)
-
-checkEvent()
-fenetre.mainloop()
 
 
 '''
@@ -82,7 +60,7 @@ def main():
                 print("Lancement d'une histoire")
                 ecouterHistoire()
             else:
-                # Sinon on attend que le bouton soit appuyé en écoutant le son d'ambiance
+                # Sinon, on attend que le bouton soit appuyé en écoutant le son d'ambiance
                 checkEvent()
                 time.sleep(0.5)
 
