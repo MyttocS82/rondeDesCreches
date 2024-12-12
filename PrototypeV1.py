@@ -11,14 +11,13 @@ Initialisation
 print("Initialisation du code")
 
 #Driver audio
-os.environ["SDL_AUDIODRIVER"] = "dummy" # ou "alsa"
+#os.environ["SDL_AUDIODRIVER"] = "dummy" # ou "alsa"
 mixer.init()
 
 #Variables
 sonAmbiance = True
 indexAudio = 0
-pinBouton = 18
-time.sleep(5)
+pinBouton = 16
 
 # Répertoire où mettre les fichiers audios à lire quand on appuie sur le bouton.
 # Ils seront lu dans l'ordre du dossier, pour le changer, il faut les renommer avec leur position (ex:  : 1-'nom_du_fichier')
