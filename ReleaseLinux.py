@@ -4,7 +4,6 @@ import logging
 import RPi.GPIO as GPIO
 from pygame import mixer
 
-
 '''
 Initialisation
 '''
@@ -69,6 +68,13 @@ def checkEvent():
             logging.exception(f"Fichier de son d'ambiance non trouvé : {FNFE}")
 
 
+def attendrePressionBouton():
+    print("En attente d'une pression sur le bouton pour démarrer...")
+    while GPIO.input(pinBouton) == GPIO.HIGH:
+        time.sleep(0.1)
+    print("Bouton pressé, démarrage du programme principal...")
+
+
 '''
 Connexion au Raspberry Pi 4b
 '''
@@ -104,4 +110,5 @@ def main():
 
 # Lancement de la boucle principale à l'exécution du code
 if __name__ == "__main__":
+    attendrePressionBouton()
     main()
