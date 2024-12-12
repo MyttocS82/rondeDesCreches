@@ -70,7 +70,11 @@ def checkEvent():
 
 def attendrePressionBouton():
     print("En attente d'une pression sur le bouton pour démarrer...")
+    dernierePression = 0
     while GPIO.input(pinBouton) == GPIO.HIGH:
+        tempsActuel = time.time()
+        if tempsActuel - dernierePression > 1:
+            dernierePression = tempsActuel
         time.sleep(0.1)
     print("Bouton pressé, démarrage du programme principal...")
 
