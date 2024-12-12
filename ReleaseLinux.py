@@ -115,4 +115,5 @@ def main():
 # Lancement de la boucle principale à l'exécution du code
 if __name__ == "__main__":
     attendrePressionBouton()
+    time.sleep(2)
     main()
